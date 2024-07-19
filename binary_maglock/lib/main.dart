@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:binary/binary.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -55,17 +58,39 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 4707;
+  int _targetValue = 0;
+  int _currentValue = 0;
 
-  void _incrementCounter() {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _targetValue = Random().nextInt(255) + 1;
+    _currentValue = 0;
+  }
+
+  void updateCurrentValue(int valueToAdd) {
+    print('input: $valueToAdd, currently: $_currentValue');
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      _currentValue += valueToAdd;
     });
+
+    print('new value = $_currentValue');
+
+    checkAgainstTargetValue();
+  }
+
+  bool checkAgainstTargetValue() {
+    if (_currentValue == _targetValue) {
+      print('values match!');
+      return true;
+    }
+    if (_currentValue < _targetValue) {
+      print('$_currentValue is below target: $_targetValue');
+    } else if (_currentValue > _targetValue) {
+      print('$_currentValue is above target: $_targetValue');
+    }
+    return false;
   }
 
   @override
@@ -109,73 +134,56 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 16),
             ),
             Text(
-              'ACCESS CODE = $_counter',
+              'ACCESS CODE = $_targetValue',
               style: TextStyle(fontSize: 16),
             ),
+            Text('INPUT = ${_currentValue.toBinaryPadded(8)}'),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 34.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 20),
-                    child: Container(
-                      color: Colors.red,
-                      width: 40,
-                      height: 20,
-                    ),
+                  MaglockInputButton(
+                    buttonValue: 128,
+                    displayValue: 0421,
+                    handoffValue: updateCurrentValue,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 0),
-                    child: Container(
-                      color: Colors.red,
-                      width: 40,
-                      height: 20,
-                    ),
+                  MaglockInputButton(
+                    buttonValue: 64,
+                    displayValue: 3077,
+                    handoffValue: updateCurrentValue,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 0),
-                    child: Container(
-                      color: Colors.red,
-                      width: 40,
-                      height: 20,
-                    ),
+                  MaglockInputButton(
+                    buttonValue: 32,
+                    displayValue: 5545,
+                    handoffValue: updateCurrentValue,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 0),
-                    child: Container(
-                      color: Colors.red,
-                      width: 40,
-                      height: 20,
-                    ),
+                  MaglockInputButton(
+                    buttonValue: 16,
+                    displayValue: 9320,
+                    handoffValue: updateCurrentValue,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 0),
-                    child: Container(
-                      color: Colors.red,
-                      width: 40,
-                      height: 20,
-                    ),
+                  MaglockInputButton(
+                    buttonValue: 8,
+                    displayValue: 1198,
+                    handoffValue: updateCurrentValue,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 0),
-                    child: Container(
-                      color: Colors.red,
-                      width: 40,
-                      height: 20,
-                    ),
+                  MaglockInputButton(
+                    buttonValue: 4,
+                    displayValue: 6969,
+                    handoffValue: updateCurrentValue,
+                  ),
+                  MaglockInputButton(
+                    buttonValue: 2,
+                    displayValue: 8894,
+                    handoffValue: updateCurrentValue,
                   ),
                   MaglockInputButton(
                     buttonValue: 1,
                     displayValue: 2530,
+                    handoffValue: updateCurrentValue,
                   )
                 ],
               ),
@@ -183,36 +191,61 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
 
-class MaglockInputButton extends StatelessWidget {
+class MaglockInputButton extends StatefulWidget {
   final int buttonValue;
   final int displayValue;
+  final void Function(int) handoffValue;
 
   const MaglockInputButton({
     required this.buttonValue,
     required this.displayValue,
+    required this.handoffValue,
     super.key,
   });
+
+  @override
+  State<MaglockInputButton> createState() => _MaglockInputButtonState();
+}
+
+class _MaglockInputButtonState extends State<MaglockInputButton> {
+  bool _buttonPressed = false;
+
+  @override
+  void initState() {
+    _buttonPressed = false;
+    super.initState();
+  }
+
+  void pressButton() {
+    setState(() {
+      _buttonPressed = !_buttonPressed;
+    });
+    if (_buttonPressed) {
+      widget.handoffValue(widget.buttonValue);
+    }
+    if (!_buttonPressed) {
+      widget.handoffValue(-widget.buttonValue);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0),
-      child: Container(
-        color: Colors.red,
-        width: 40,
-        height: 20,
-        child: Text(
-          this.displayValue.toString(),
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+      child: GestureDetector(
+        onTap: pressButton,
+        child: Container(
+          color: _buttonPressed ? Colors.white : Colors.red,
+          width: 40,
+          height: 20,
+          child: Text(
+            this.widget.displayValue.toString(),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+          ),
         ),
       ),
     );
