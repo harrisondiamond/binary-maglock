@@ -1,8 +1,10 @@
 import 'dart:math';
 
-import 'package:binary/binary.dart';
+import 'package:binary/binary.dart' as binary;
+import 'package:binary_maglock/constants.dart';
 import 'package:binary_maglock/entrypoint_row.dart';
-import 'package:binary_maglock/maglock_input_button.dart';
+import 'package:binary_maglock/input_row.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -21,17 +23,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          colorScheme: ColorScheme.dark().copyWith(surface: Colors.red),
+          colorScheme: ColorScheme.dark().copyWith(surface: lcarsRed),
           useMaterial3: true),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({
+    super.key,
+  });
 
-  final String title;
+  // final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -40,12 +44,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _targetValue = 0;
   int _currentValue = 0;
+  String _currentInput = '';
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _targetValue = Random().nextInt(255) + 1;
+    _targetValue = Random().nextInt(127) + 1;
     _currentValue = 0;
   }
 
@@ -70,6 +75,16 @@ class _MyHomePageState extends State<MyHomePage> {
     } else if (_currentValue > _targetValue) {
       print('$_currentValue is above target: $_targetValue');
     }
+    return false;
+  }
+
+  bool checkAgainstTargetValueV2(String input, int target) {
+    print(input.bits);
+    if (input.bits == target) {
+      print('true');
+      return true;
+    }
+    print('false');
     return false;
   }
 
@@ -103,62 +118,36 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700),
               ),
               Text(
-                'INPUT = ${_currentValue.toBinaryPadded(8)}',
+                'INPUT = $_currentInput',
                 style: TextStyle(fontSize: 36),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 12.0, vertical: 34.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    MaglockInputButton(
-                      buttonValue: 128,
-                      displayValue: 0421,
-                      handoffValue: updateCurrentValue,
-                    ),
-                    MaglockInputButton(
-                      buttonValue: 64,
-                      displayValue: 3077,
-                      handoffValue: updateCurrentValue,
-                    ),
-                    MaglockInputButton(
-                      buttonValue: 32,
-                      displayValue: 5545,
-                      handoffValue: updateCurrentValue,
-                    ),
-                    MaglockInputButton(
-                      buttonValue: 16,
-                      displayValue: 9320,
-                      handoffValue: updateCurrentValue,
-                    ),
-                    MaglockInputButton(
-                      buttonValue: 8,
-                      displayValue: 1198,
-                      handoffValue: updateCurrentValue,
-                    ),
-                    MaglockInputButton(
-                      buttonValue: 4,
-                      displayValue: 6969,
-                      handoffValue: updateCurrentValue,
-                    ),
-                    MaglockInputButton(
-                      buttonValue: 2,
-                      displayValue: 8894,
-                      handoffValue: updateCurrentValue,
-                    ),
-                    MaglockInputButton(
-                      buttonValue: 1,
-                      displayValue: 2530,
-                      handoffValue: updateCurrentValue,
-                    )
-                  ],
-                ),
-              ),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 12.0, vertical: 34.0),
+                  child: InputRow(
+                    handoffPresses: (inputValue) {
+                      setState(() {
+                        _currentInput += inputValue;
+                        print(_currentInput);
+                        checkAgainstTargetValueV2(_currentInput, _targetValue);
+                      });
+                    },
+                    handoffBackspace: (backspaceValue) {
+                      if (_currentInput.length > 0) {
+                        setState(() {
+                          _currentInput = _currentInput.substring(
+                              0, _currentInput.length - 1);
+                          print(_currentInput);
+                          checkAgainstTargetValueV2(
+                              _currentInput, _targetValue);
+                        });
+                      }
+                    },
+                  )),
               ElevatedButton(
                 onPressed: () {
-                  //todo: reset the page
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (_) => MyHomePage()));
                 },
                 child: Text('Reset'),
               )
