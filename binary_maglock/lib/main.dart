@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:binary/binary.dart';
+import 'package:binary_maglock/entrypoint_row.dart';
 import 'package:binary_maglock/maglock_input_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -82,6 +83,9 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              EntrypointRow(
+                enableMaglock: (enable) => null,
+              ),
               const Text(
                 'MANUAL INPUT',
                 style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
