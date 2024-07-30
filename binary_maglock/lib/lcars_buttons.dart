@@ -46,7 +46,7 @@ class _LcarsEndLeftState extends State<LcarsEndLeft> {
           return null;
         },
         child: Container(
-          color: lcarsRed,
+          color: buttonColor,
           height: widget.height,
           width: widget.width,
         ),
@@ -100,9 +100,75 @@ class _LcarsEndRightState extends State<LcarsEndRight> {
           return null;
         },
         child: Container(
-          color: lcarsRed,
+          color: buttonColor,
           height: widget.height,
           width: widget.width,
+        ),
+      ),
+    );
+  }
+}
+
+class LcarsRectButton extends StatefulWidget {
+  final double height;
+  final double width;
+  final String? displayText;
+  final void Function(String)? pressCallback;
+  const LcarsRectButton({
+    super.key,
+    required this.height,
+    required this.width,
+    this.displayText,
+    this.pressCallback,
+  });
+
+  @override
+  State<LcarsRectButton> createState() => _LcarsRectButtonState();
+}
+
+class _LcarsRectButtonState extends State<LcarsRectButton> {
+  Color buttonColor = lcarsRed;
+  @override
+  void initState() {
+    super.initState();
+
+    buttonColor = lcarsRed;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (details) => setState(() {
+        buttonColor = Colors.white;
+      }),
+      onTapUp: (details) => setState(() {
+        buttonColor = lcarsRed;
+      }),
+      onTap: () {
+        if (widget.pressCallback != null) {
+          print('press callback');
+          return widget.pressCallback!('');
+        }
+        print('not press callback');
+        return null;
+      },
+      child: Container(
+        color: buttonColor,
+        height: widget.height,
+        width: widget.width,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: widget.width / 18, vertical: widget.width / 18),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: Text(
+              widget.displayText ?? '',
+              style: TextStyle(
+                  fontSize: (widget.height / 2.15).roundToDouble(),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
+          ),
         ),
       ),
     );

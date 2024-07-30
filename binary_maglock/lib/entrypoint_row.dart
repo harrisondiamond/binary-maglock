@@ -1,6 +1,6 @@
 import 'package:binary/binary.dart';
 import 'package:binary_maglock/constants.dart';
-import 'package:binary_maglock/lcars_ends.dart';
+import 'package:binary_maglock/lcars_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
