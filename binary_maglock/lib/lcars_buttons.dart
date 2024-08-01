@@ -147,7 +147,75 @@ class _LcarsRectButtonState extends State<LcarsRectButton> {
       onTap: () {
         if (widget.pressCallback != null) {
           print('press callback');
-          return widget.pressCallback!('');
+          return widget.pressCallback!(widget.displayText ?? '');
+        }
+        print('not press callback');
+        return null;
+      },
+      child: Container(
+        color: buttonColor,
+        height: widget.height,
+        width: widget.width,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: widget.width / 18, vertical: widget.width / 18),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: Text(
+              widget.displayText ?? '',
+              style: TextStyle(
+                  fontSize: (widget.height / 2.15).roundToDouble(),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LcarsRectButtonStickyColor extends StatefulWidget {
+  final double height;
+  final double width;
+  final String? displayText;
+  final void Function(String)? pressCallback;
+  bool pressed;
+  LcarsRectButtonStickyColor(
+      {super.key,
+      required this.height,
+      required this.width,
+      this.displayText,
+      this.pressCallback,
+      this.pressed = false});
+
+  @override
+  State<LcarsRectButtonStickyColor> createState() =>
+      _LcarsRectButtonStickyColorState();
+}
+
+class _LcarsRectButtonStickyColorState
+    extends State<LcarsRectButtonStickyColor> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // print('building ${widget.displayText}:${widget.pressed}');
+    Color buttonColor = widget.pressed ? Colors.white : lcarsRed;
+    return GestureDetector(
+      onTapDown: (details) => setState(() {
+        buttonColor = Colors.white;
+      }),
+      // onTapUp: (details) => setState(() {
+      //   buttonColor = lcarsRed;
+      // }),
+      onTap: () {
+        if (widget.pressCallback != null) {
+          print('press callback');
+          return widget.pressCallback!(widget.displayText ?? '');
         }
         print('not press callback');
         return null;

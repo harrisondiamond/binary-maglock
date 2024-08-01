@@ -2,6 +2,7 @@ import 'package:binary_maglock/constants.dart';
 import 'package:binary_maglock/helpers.dart';
 import 'package:binary_maglock/lcars_buttons.dart';
 import 'package:binary_maglock/maglock_portal_row.dart';
+import 'package:binary_maglock/screens/manual_input_screen_v2.dart';
 import 'package:flutter/material.dart';
 
 class AccessDeniedScreen extends StatefulWidget {
@@ -13,12 +14,37 @@ class AccessDeniedScreen extends StatefulWidget {
 
 class _AccessDeniedScreenState extends State<AccessDeniedScreen> {
   void updateCounter(String aaa) {
+    print('callback to $aaa');
     return;
   }
 
-  Map<int, bool> pressedButtons = {};
-  //TODO: Working on denied screen, how to enter main game mode.
-  void press64(String a) {}
+  Map<String, bool> pressedButtons = {};
+
+  @override
+  void initState() {
+    super.initState();
+    pressedButtons = {
+      '1': false,
+      '2': false,
+      '4': false,
+      '8': false,
+      '16': false,
+      '32': false,
+      '64': false
+    };
+  }
+
+  void pressButtons(String inputValue) {
+    // print('updating $inputValue');
+    setState(() {
+      pressedButtons[inputValue] = true;
+    });
+    // print(pressedButtons);
+    if (!pressedButtons.containsValue(false)) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => ManualInputScreenV2()));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,65 +110,72 @@ class _AccessDeniedScreenState extends State<AccessDeniedScreen> {
                       SizedBox(
                         width: 6,
                       ),
-                      LcarsRectButton(
+                      LcarsRectButtonStickyColor(
                         height: 60,
                         width: 80,
                         displayText: '64',
-                        pressCallback: (p0) => updateCounter(p0),
+                        pressCallback: (p0) => pressButtons(p0),
+                        pressed: pressedButtons['64'] ?? false,
                       ),
                       SizedBox(
                         width: 6,
                       ),
-                      LcarsRectButton(
+                      LcarsRectButtonStickyColor(
                         height: 60,
                         width: 80,
                         displayText: '32',
-                        pressCallback: (p0) => updateCounter(p0),
+                        pressCallback: (p0) => pressButtons(p0),
+                        pressed: pressedButtons['32'] ?? false,
                       ),
                       SizedBox(
                         width: 6,
                       ),
-                      LcarsRectButton(
+                      LcarsRectButtonStickyColor(
                         height: 60,
                         width: 80,
                         displayText: '16',
-                        pressCallback: (p0) => updateCounter(p0),
+                        pressCallback: (p0) => pressButtons(p0),
+                        pressed: pressedButtons['16'] ?? false,
                       ),
                       SizedBox(
                         width: 6,
                       ),
-                      LcarsRectButton(
+                      LcarsRectButtonStickyColor(
                         height: 60,
                         width: 80,
                         displayText: '8',
-                        pressCallback: (p0) => updateCounter(p0),
+                        pressCallback: (p0) => pressButtons(p0),
+                        pressed: pressedButtons['8'] ?? false,
                       ),
                       SizedBox(
                         width: 6,
                       ),
-                      LcarsRectButton(
+                      LcarsRectButtonStickyColor(
                         height: 60,
                         width: 80,
                         displayText: '4',
-                        pressCallback: (p0) => updateCounter(p0),
+                        pressCallback: (p0) => pressButtons(p0),
+                        pressed: pressedButtons['4'] ?? false,
                       ),
                       SizedBox(
                         width: 6,
                       ),
-                      LcarsRectButton(
+                      LcarsRectButtonStickyColor(
                         height: 60,
                         width: 80,
                         displayText: '2',
-                        pressCallback: (p0) => updateCounter(p0),
+                        pressCallback: (p0) => pressButtons(p0),
+                        pressed: pressedButtons['2'] ?? false,
                       ),
                       SizedBox(
                         width: 6,
                       ),
-                      LcarsRectButton(
+                      LcarsRectButtonStickyColor(
                         height: 60,
                         width: 80,
                         displayText: '1',
-                        pressCallback: (p0) => updateCounter(p0),
+                        pressCallback: (p0) => pressButtons(p0),
+                        pressed: pressedButtons['1'] ?? false,
                       ),
                       SizedBox(
                         width: 6,

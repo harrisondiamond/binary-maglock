@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EntrypointRow extends StatefulWidget {
-  const EntrypointRow({super.key, required this.enableMaglock});
-  final void Function(bool) enableMaglock;
+  const EntrypointRow({
+    super.key,
+  });
+
   @override
   State<EntrypointRow> createState() => _EntrypointRowState();
 }
@@ -46,10 +48,12 @@ class _EntrypointRowState extends State<EntrypointRow> {
     }
     entrypointButtons.add(Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Text(
-        'MAGLOCK',
-        style: TextStyle(
-            fontWeight: FontWeight.bold, fontSize: 48, color: Colors.white),
+      child: Center(
+        child: Text(
+          'MAGLOCK',
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 48, color: Colors.white),
+        ),
       ),
     ));
     entrypointButtons.add(LcarsEndRight(height: 60, width: 60));

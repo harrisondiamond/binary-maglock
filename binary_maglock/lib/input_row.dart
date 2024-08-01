@@ -16,6 +16,7 @@ class InputRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 80.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           LcarsEndLeft(
             height: 60,
@@ -44,11 +45,10 @@ class InputRow extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: Container(
-              height: 60,
-              color: lcarsRed,
-            ),
+          Container(
+            height: 60,
+            width: 400,
+            color: lcarsRed,
           ),
           SizedBox(
             width: 5,

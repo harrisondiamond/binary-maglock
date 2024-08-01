@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:binary/binary.dart';
 import 'package:binary_maglock/entrypoint_row.dart';
 import 'package:binary_maglock/input_row.dart';
+import 'package:binary_maglock/screens/panel_offline_screen.dart';
 import 'package:flutter/material.dart';
 
 class ManualInputScreen extends StatefulWidget {
@@ -15,11 +16,15 @@ class ManualInputScreen extends StatefulWidget {
 class _ManualInputScreenState extends State<ManualInputScreen> {
   int _targetValue = 0;
   String _currentInput = '';
+  void resetTarget() {
+    _targetValue = Random().nextInt(127) + 1;
+    _currentInput = '';
+  }
 
   @override
   void initState() {
     super.initState();
-    _targetValue = Random().nextInt(127) + 1;
+    resetTarget();
   }
 
   bool checkAgainstTargetValue(String input, int target) {
@@ -29,6 +34,9 @@ class _ManualInputScreenState extends State<ManualInputScreen> {
     print(input.bits);
     if (input.bits == target) {
       print('true');
+      setState(() {
+        resetTarget();
+      });
       return true;
     }
     print('false');
@@ -45,9 +53,7 @@ class _ManualInputScreenState extends State<ManualInputScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              EntrypointRow(
-                enableMaglock: (enable) => null,
-              ),
+              EntrypointRow(),
               Text(
                 'MANUAL INPUT',
                 style: TextStyle(fontSize: 72, fontWeight: FontWeight.w600),
@@ -94,7 +100,7 @@ class _ManualInputScreenState extends State<ManualInputScreen> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => ManualInputScreen()));
+                      MaterialPageRoute(builder: (_) => PanelOfflineScreen()));
                 },
                 child: Text('Reset'),
               )
