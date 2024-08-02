@@ -1,3 +1,4 @@
+import 'package:binary_maglock/app_icon.dart';
 import 'package:binary_maglock/constants.dart';
 import 'package:binary_maglock/screens/panel_offline_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       //   colorScheme: ColorScheme.dark().copyWith(surface: lcarsRed),
       //   useMaterial3: true,
       // ),
-      home: const PanelOfflineScreen(),
+      home: const AppIcon(),
     );
   }
 }
