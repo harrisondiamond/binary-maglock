@@ -10,6 +10,7 @@ class InputRow extends StatelessWidget {
       required this.handoffBackspace});
   final void Function(String) handoffPresses;
   final void Function(String) handoffBackspace;
+
   @override
   Widget build(BuildContext context) {
     return Padding(

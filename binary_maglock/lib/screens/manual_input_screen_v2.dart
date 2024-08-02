@@ -1,9 +1,11 @@
 import 'dart:math';
-
 import 'package:binary/binary.dart';
+import 'package:binary_maglock/constants.dart';
 import 'package:binary_maglock/helpers.dart';
-import 'package:binary_maglock/input_button.dart';
 import 'package:binary_maglock/input_row.dart';
+import 'package:binary_maglock/lcars_buttons.dart';
+import 'package:binary_maglock/progress_button_row.dart';
+import 'package:binary_maglock/screens/cycle_screen.dart';
 import 'package:binary_maglock/screens/panel_offline_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,17 +17,31 @@ class ManualInputScreenV2 extends StatefulWidget {
 }
 
 class _ManualInputScreenV2State extends State<ManualInputScreenV2> {
+  int _correctAnswerCounter = 0;
   int _targetValue = 0;
   String _currentInput = '';
   void resetTarget() {
-    _targetValue = Random().nextInt(127) + 1;
-    _currentInput = '';
+    setState(() {
+      _targetValue = Random().nextInt(127) + 1;
+      _currentInput = '';
+    });
+  }
+
+  void updateProgress() {
+    setState(() {
+      _correctAnswerCounter += 1;
+    });
+    if (_correctAnswerCounter == 7) {
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (_) => CycleScreen()));
+    }
   }
 
   @override
   void initState() {
     super.initState();
     resetTarget();
+    _correctAnswerCounter = 0;
   }
 
   bool checkAgainstTargetValue(String input, int target) {
@@ -35,9 +51,10 @@ class _ManualInputScreenV2State extends State<ManualInputScreenV2> {
     print(input.bits);
     if (input.bits == target) {
       print('true');
-      setState(() {
-        resetTarget();
-      });
+
+      updateProgress();
+      resetTarget();
+
       return true;
     }
     print('false');
@@ -61,7 +78,7 @@ class _ManualInputScreenV2State extends State<ManualInputScreenV2> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  ProgressButttonRow(),
+                  ProgressButttonRow(progressCount: _correctAnswerCounter),
                   Text(
                     'MANUAL INPUT',
                     style: TextStyle(fontSize: 72, fontWeight: FontWeight.w600),
@@ -121,23 +138,5 @@ class _ManualInputScreenV2State extends State<ManualInputScreenV2> {
         ),
       ),
     );
-  }
-}
-
-class ProgressButttonRow extends StatelessWidget {
-  const ProgressButttonRow({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          LcarsButton(
-              displayValue: 'displayValue',
-              width: 80,
-              height: 60,
-              handoffPress: (p0) {})
-        ]);
   }
 }

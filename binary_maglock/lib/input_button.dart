@@ -13,7 +13,7 @@ class LcarsButton extends StatefulWidget {
   final String displayValue;
   final double width;
   final double height;
-  final void Function(String) handoffPress;
+  final void Function(String)? handoffPress;
 
   @override
   State<LcarsButton> createState() => _LcarsButtonState();
@@ -42,7 +42,9 @@ class _LcarsButtonState extends State<LcarsButton> {
         });
         ;
       },
-      onTap: () => widget.handoffPress(widget.displayValue),
+      onTap: () => (widget.handoffPress != null)
+          ? widget.handoffPress!(widget.displayValue)
+          : null,
       child: Container(
         color: containerColor,
         height: widget.height,

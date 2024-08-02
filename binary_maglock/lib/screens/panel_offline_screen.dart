@@ -3,6 +3,7 @@ import 'package:binary_maglock/helpers.dart';
 import 'package:binary_maglock/lcars_buttons.dart';
 import 'package:binary_maglock/maglock_portal_row.dart';
 import 'package:binary_maglock/screens/access_denied_screen.dart';
+import 'package:binary_maglock/screens/cycle_screen.dart';
 import 'package:binary_maglock/screens/manual_input_screen.dart';
 // import 'package:binary_maglock/screens/manual_input_screen.dart';
 import 'package:flutter/material.dart';
