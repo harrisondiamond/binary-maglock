@@ -18,7 +18,7 @@ class _PanelOfflineScreenState extends State<PanelOfflineScreen> {
   int _counter = 0;
 
   void updateCounter(String buttonValue) {
-    print('pressed $buttonValue, incrementing $_counter');
+    // print('pressed $buttonValue, incrementing $_counter');
     _counter += 1;
     if (_counter == 7) {
       Navigator.of(context).pushReplacement(

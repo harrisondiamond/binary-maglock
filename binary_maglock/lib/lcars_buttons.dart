@@ -39,10 +39,10 @@ class _LcarsEndLeftState extends State<LcarsEndLeft> {
         }),
         onTap: () {
           if (widget.pressCallback != null) {
-            print('press callback');
+            // print('press callback');
             return widget.pressCallback!('');
           }
-          print('not press callback');
+          // print('not press callback');
           return null;
         },
         child: Container(
@@ -93,10 +93,10 @@ class _LcarsEndRightState extends State<LcarsEndRight> {
         }),
         onTap: () {
           if (widget.pressCallback != null) {
-            print('press callback');
+            // print('press callback');
             return widget.pressCallback!('');
           }
-          print('not press callback');
+          // print('not press callback');
           return null;
         },
         child: Container(
@@ -146,10 +146,10 @@ class _LcarsRectButtonState extends State<LcarsRectButton> {
       }),
       onTap: () {
         if (widget.pressCallback != null) {
-          print('press callback');
+          // print('press callback');
           return widget.pressCallback!(widget.displayText ?? '');
         }
-        print('not press callback');
+        // print('not press callback');
         return null;
       },
       child: Container(
@@ -214,10 +214,10 @@ class _LcarsRectButtonStickyColorState
       // }),
       onTap: () {
         if (widget.pressCallback != null) {
-          print('press callback');
+          // print('press callback');
           return widget.pressCallback!(widget.displayText ?? '');
         }
-        print('not press callback');
+        // print('not press callback');
         return null;
       },
       child: Container(

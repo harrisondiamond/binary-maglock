@@ -45,16 +45,16 @@ class _ManualInputScreenState extends State<ManualInputScreen> {
     if (input.isEmpty) {
       return false;
     }
-    print(input.bits);
+    // print(input.bits);
     if (input.bits == target) {
-      print('true');
+      // print('true');
 
       updateProgress();
       resetTarget();
 
       return true;
     }
-    print('false');
+    // print('false');
     return false;
   }
 

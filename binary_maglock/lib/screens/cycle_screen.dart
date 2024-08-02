@@ -62,7 +62,7 @@ class _CycleScreenState extends State<CycleScreen> {
                 children: <Widget>[
                   ProgressButttonRow(progressCount: progressCount),
                   SizedBox(
-                    width: availableWidth / 2,
+                    width: availableWidth / 1.5,
                     child: Center(
                       child: Text(
                         mainMessage,
