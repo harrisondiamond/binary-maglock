@@ -3,8 +3,7 @@ import 'package:binary_maglock/helpers.dart';
 import 'package:binary_maglock/lcars_buttons.dart';
 import 'package:binary_maglock/maglock_portal_row.dart';
 import 'package:binary_maglock/screens/access_denied_screen.dart';
-import 'package:binary_maglock/screens/cycle_screen.dart';
-import 'package:binary_maglock/screens/manual_input_screen.dart';
+
 // import 'package:binary_maglock/screens/manual_input_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +35,7 @@ class _PanelOfflineScreenState extends State<PanelOfflineScreen> {
   @override
   Widget build(BuildContext context) {
     final double availableHeight = getSafeHeight(context);
-    final double availableWidth = getSafeWidth(context);
+    // final double availableWidth = getSafeWidth(context);
     return SafeArea(
       child: Scaffold(
         body: Center(

@@ -25,9 +25,7 @@ class _CycleScreenState extends State<CycleScreen> {
   }
 
   void runCycle() async {
-    print('the future is next');
     await Future.delayed(Duration(seconds: 3));
-    print('the future is now');
     setState(() {
       progressCount = 0;
       mainMessage = 'MAGLOCK CYCLE COMPLETE';
@@ -47,7 +45,7 @@ class _CycleScreenState extends State<CycleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final double availableHeight = getSafeHeight(context);
+    // final double availableHeight = getSafeHeight(context);
     final double availableWidth = getSafeWidth(context);
     return SafeArea(
       child: Scaffold(

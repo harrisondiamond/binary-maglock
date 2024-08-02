@@ -2,7 +2,7 @@ import 'package:binary_maglock/constants.dart';
 import 'package:binary_maglock/helpers.dart';
 import 'package:binary_maglock/lcars_buttons.dart';
 import 'package:binary_maglock/maglock_portal_row.dart';
-import 'package:binary_maglock/screens/manual_input_screen_v2.dart';
+import 'package:binary_maglock/screens/manual_input_screen.dart';
 import 'package:flutter/material.dart';
 
 class AccessDeniedScreen extends StatefulWidget {
@@ -42,14 +42,14 @@ class _AccessDeniedScreenState extends State<AccessDeniedScreen> {
     // print(pressedButtons);
     if (!pressedButtons.containsValue(false)) {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => ManualInputScreenV2()));
+          MaterialPageRoute(builder: (_) => ManualInputScreen()));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final double availableHeight = getSafeHeight(context);
-    final double availableWidth = getSafeWidth(context);
+    // final double availableWidth = getSafeWidth(context);
     return SafeArea(
       child: Scaffold(
         body: Center(

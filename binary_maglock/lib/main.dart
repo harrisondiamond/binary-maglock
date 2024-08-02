@@ -1,10 +1,4 @@
-import 'dart:math';
-
-import 'package:binary/binary.dart' as binary;
 import 'package:binary_maglock/constants.dart';
-import 'package:binary_maglock/entrypoint_row.dart';
-import 'package:binary_maglock/input_row.dart';
-import 'package:binary_maglock/screens/manual_input_screen.dart';
 import 'package:binary_maglock/screens/panel_offline_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';

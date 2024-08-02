@@ -180,7 +180,7 @@ class LcarsRectButtonStickyColor extends StatefulWidget {
   final double width;
   final String? displayText;
   final void Function(String)? pressCallback;
-  bool pressed;
+  final bool pressed;
   LcarsRectButtonStickyColor(
       {super.key,
       required this.height,
