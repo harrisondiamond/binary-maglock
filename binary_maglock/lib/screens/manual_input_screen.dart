@@ -3,7 +3,7 @@ import 'package:binary/binary.dart';
 import 'package:binary_maglock/input_row.dart';
 import 'package:binary_maglock/progress_button_row.dart';
 import 'package:binary_maglock/screens/cycle_screen.dart';
-import 'package:binary_maglock/screens/panel_offline_screen.dart';
+
 import 'package:flutter/material.dart';
 
 class ManualInputScreen extends StatefulWidget {
@@ -104,7 +104,7 @@ class _ManualInputScreenState extends State<ManualInputScreen> {
                           if (_currentInput.length >= 8) return;
                           setState(() {
                             _currentInput += inputValue;
-                            print(_currentInput);
+                            // print(_currentInput);
                             checkAgainstTargetValue(
                                 _currentInput, _targetValue);
                           });
@@ -121,13 +121,13 @@ class _ManualInputScreenState extends State<ManualInputScreen> {
                           });
                         },
                       )),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (_) => PanelOfflineScreen()));
-                    },
-                    child: Text('Reset'),
-                  )
+                  // ElevatedButton(
+                  //   onPressed: () {
+                  //     Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  //         builder: (_) => PanelOfflineScreen()));
+                  //   },
+                  //   child: Text('Reset'),
+                  // )
                 ],
               ),
             ),
