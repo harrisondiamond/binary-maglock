@@ -85,20 +85,17 @@ class _ManualInputScreenState extends State<ManualInputScreen> {
                     style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700),
                   ),
                   Text(
-                    'SUBSYS ID = MAGLOCK AE35',
+                    'SUBSYS ID = $_targetValue',
                     style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700),
                   ),
                   Text(
-                    'ACCESS CODE = $_targetValue',
+                    'ACCESS CODE = $_currentInput',
                     style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700),
                   ),
-                  Text(
-                    'INPUT = $_currentInput',
-                    style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700),
-                  ),
+
                   Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12.0, vertical: 34.0),
+                          horizontal: 0.0, vertical: 34.0),
                       child: InputRow(
                         handoffPresses: (inputValue) {
                           if (_currentInput.length >= 8) return;
